@@ -1,11 +1,12 @@
 State state;
 
 void initState() {
+  state.stepFlag = false;
   state.bumped = false;
   state.cameraX = 0;
   state.cameraY = 0;
     
-  byte itemId = random(2, NUM_SPRITES);
+  byte itemId = random(3, NUM_SPRITES);
   
   byte itemX = random(0, WORLD_W);
   byte itemY = random(0, WORLD_H);
@@ -44,6 +45,10 @@ State updateState(Inputs inputs) {
 
 void updatePlayer(Inputs inputs) {
   state.world[state.playerX][state.playerY] = 0;
+
+  if (inputs.anyMove) {
+    state.stepFlag = !state.stepFlag;
+  }
   
   if (inputs.up) {
     if (state.playerY > 0) {
@@ -74,7 +79,7 @@ void updatePlayer(Inputs inputs) {
     }
   }
 
-  state.world[state.playerX][state.playerY] = 1;
+  state.world[state.playerX][state.playerY] = state.stepFlag ? 2 : 1;
 }
 
 void updateCamera() {

@@ -9,10 +9,12 @@ Gamebuino gb;
 #define REPEAT_DELAY 5
 
 typedef struct {
-  bool up, down, left, right, a, b, c;
+  bool up, down, left, right, anyMove;
+  bool a, b, c;
 } Inputs;
 
 typedef struct {
+  boolean stepFlag;
   boolean bumped;
   byte world[WORLD_W][WORLD_H];
   byte playerX, playerY; // in game world coords
